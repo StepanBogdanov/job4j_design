@@ -23,9 +23,9 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean delete(String id) {
-        T found = findById(id);
-        if (found != null) {
-            mem.remove(found);
+        int index = findIndexById(id);
+        if (index != -1) {
+            mem.remove(index);
             return true;
         }
         return false;
@@ -39,6 +39,17 @@ public final class MemStore<T extends Base> implements Store<T> {
             }
         }
         return null;
+    }
+
+    private int findIndexById(String id) {
+        int index = -1;
+        for (int i = 0; i < mem.size(); i++) {
+            if (mem.get(i).getId().equals(id)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }
 

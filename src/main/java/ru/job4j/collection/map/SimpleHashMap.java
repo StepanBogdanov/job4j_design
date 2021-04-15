@@ -6,10 +6,11 @@ import java.util.NoSuchElementException;
 
 public class SimpleHashMap<K, V> implements HashMap<K, V> {
 
-    private Entry[] container;
+    private Entry<K, V>[] container;
     private int capacity;
     private int modCount = 0;
     private int count = 0;
+    private final float loadFactor = 0.75f;
 
     public SimpleHashMap() {
         capacity = 16;
@@ -23,35 +24,41 @@ public class SimpleHashMap<K, V> implements HashMap<K, V> {
 
     static int hash(Object key) {
         int h = key.hashCode();
-        return (key == null) ? 0 : h ^ (h >>> 16);
+        return h ^ h >>> 16;
     }
 
     public int size() {
         return count;
     }
 
+    private void expand() {
+        Entry<K, V>[] newContainer = new Entry[capacity << 1];
+        for (Entry<K, V> entry : (Iterable<Entry<K, V>>) this) {
+            int index = (capacity - 1) & entry.hash;
+            if (newContainer[index] == null || newContainer[index].key.equals(entry.key)) {
+                newContainer[index] = entry;
+            }
+        }
+        capacity *= 2;
+        container = newContainer;
+    }
 
     @Override
     public boolean insert(K key, V value) {
-        if ((float) count / capacity >= 0.75) {
-            Entry[] newContainer = new Entry[capacity << 1];
-            Iterator<Entry> it = iterator();
-            while (it.hasNext()) {
-                Entry entry = it.next();
-                int index = (capacity - 1) & entry.hash;
-                if (newContainer[index] == null || newContainer[index].key.equals(key)) {
-                    newContainer[index] = entry;
-                }
-            }
-            capacity *= 2;
-            container = newContainer;
+        if ((float) count / capacity >= loadFactor) {
+            expand();
         }
-        Entry entry = new Entry(hash(key), key, value);
+        Entry<K, V> entry = new Entry<>(hash(key), key, value);
         int index = (capacity - 1) & entry.hash;
-        if (container[index] == null || container[index].key.equals(key)) {
+        if (container[index] == null) {
             container[index] = entry;
             modCount++;
             count++;
+            return true;
+        }
+        if (container[index].key.equals(key)) {
+            container[index] = entry;
+            modCount++;
             return true;
         }
         return false;
@@ -60,13 +67,16 @@ public class SimpleHashMap<K, V> implements HashMap<K, V> {
     @Override
     public V get(K key) {
         int index = (capacity - 1) & hash(key);
-        return (V) container[index].value;
+        if (key.equals(container[index].key)) {
+            return container[index].value;
+        }
+        return null;
     }
 
     @Override
     public boolean delete(K key) {
         int index = (capacity - 1) & hash(key);
-        if (container[index] != null) {
+        if (container[index] != null && key.equals(container[index].key)) {
             container[index] = null;
             modCount++;
             count--;
@@ -76,11 +86,11 @@ public class SimpleHashMap<K, V> implements HashMap<K, V> {
     }
 
     @Override
-    public Iterator<Entry> iterator() {
-        return new Iterator<Entry>() {
+    public Iterator<Entry<K, V>> iterator() {
+        return new Iterator<>() {
 
             private int index = 0;
-            private int expectedModCount = modCount;
+            private final int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
@@ -93,7 +103,7 @@ public class SimpleHashMap<K, V> implements HashMap<K, V> {
             }
 
             @Override
-            public Entry next() {
+            public Entry<K, V> next() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
@@ -106,18 +116,14 @@ public class SimpleHashMap<K, V> implements HashMap<K, V> {
     }
 
     public class Entry<K, V> {
-        private int hash;
-        private K key;
-        private V value;
+        private final int hash;
+        private final K key;
+        private final V value;
 
         public Entry(int hash, K key, V value) {
             this.hash = hash;
             this.key = key;
             this.value = value;
-        }
-
-        public K getKey() {
-            return key;
         }
 
         public V getValue() {

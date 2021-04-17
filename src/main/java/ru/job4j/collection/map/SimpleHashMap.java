@@ -10,7 +10,7 @@ public class SimpleHashMap<K, V> implements HashMap<K, V> {
     private int capacity;
     private int modCount = 0;
     private int count = 0;
-    private final float loadFactor = 0.75f;
+    private static final float LOAD_FACTOR = 0.75f;
 
     public SimpleHashMap() {
         capacity = 16;
@@ -45,7 +45,7 @@ public class SimpleHashMap<K, V> implements HashMap<K, V> {
 
     @Override
     public boolean insert(K key, V value) {
-        if ((float) count / capacity >= loadFactor) {
+        if ((float) count / capacity >= LOAD_FACTOR) {
             expand();
         }
         Entry<K, V> entry = new Entry<>(hash(key), key, value);
@@ -67,7 +67,7 @@ public class SimpleHashMap<K, V> implements HashMap<K, V> {
     @Override
     public V get(K key) {
         int index = (capacity - 1) & hash(key);
-        if (key.equals(container[index].key)) {
+        if (container[index] != null && key.equals(container[index].key)) {
             return container[index].value;
         }
         return null;

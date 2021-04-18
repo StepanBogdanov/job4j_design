@@ -74,14 +74,14 @@ public class FlatMapTest {
     }
 
     @Test
-    public void whenSeveralEmptyThenReturnFalse(){
+    public void whenSeveralEmptyThenReturnFalse() {
         Iterator<Iterator<Object>> it = List.of(
                 List.of().iterator(),
                 List.of().iterator(),
                 List.of().iterator(),
                 List.of().iterator()
         ).iterator();
-        FlatMap flat = new FlatMap(it);
+        FlatMap<Object> flat = new FlatMap<>(it);
         assertFalse(flat.hasNext());
     }
 }

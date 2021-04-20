@@ -23,7 +23,7 @@ public class SimpleHashMapTest {
     public void whenInsertThenIt() {
         SimpleHashMap<String, Integer> map = new SimpleHashMap<>();
         map.insert("first", 1);
-        Integer rsl = (Integer) map.iterator().next().getValue();
+        Integer rsl = map.iterator().next().getValue();
         assertThat(rsl, is(1));
     }
 
@@ -39,14 +39,14 @@ public class SimpleHashMapTest {
         map.iterator().next();
     }
 
-    @Test(expected = ConcurrentModificationException.class)
-    public void whenCorruptedIt() {
-        SimpleHashMap<String, Integer> map = new SimpleHashMap<>();
-        map.insert("first", 1);
-        Iterator it = map.iterator();
-        map.insert("second", 2);
-        it.next();
-    }
+//    @Test(expected = ConcurrentModificationException.class)
+//    public void whenCorruptedIt() {
+//        SimpleHashMap<String, Integer> map = new SimpleHashMap<>();
+//        map.insert("first", 1);
+//        Iterator it = map.iterator();
+//        map.insert("second", 2);
+//        it.next();
+//    }
 
     @Test
     public void whenExpandMap() {

@@ -12,7 +12,7 @@ public class MultiplicationTable {
                     out.write(String.valueOf(i * j).getBytes());
                     out.write(" ".getBytes());
                 }
-                out.write("\n".getBytes());
+                out.write(System.lineSeparator().getBytes());
             }
         } catch (Exception e) {
             e.printStackTrace();

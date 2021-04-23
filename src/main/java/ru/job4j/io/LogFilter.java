@@ -14,12 +14,6 @@ public class LogFilter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < log.size(); i++) {
-            String[] str = log.get(i).split(" ");
-            if (!str[str.length - 2].equals("404")) {
-                log.remove(i);
-            }
-        }
         return log;
     }
 

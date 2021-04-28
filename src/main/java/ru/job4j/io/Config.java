@@ -16,10 +16,19 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            read.lines()
-                    .filter(str -> !str.startsWith("#"))
-                    .filter(str -> !str.equals(""))
-                    .forEach(k -> values.put(k.substring(0, k.indexOf("=")), k.substring(k.indexOf("=") + 1)));
+            String line = read.readLine();
+            while (line != null) {
+                if (!line.startsWith("#") && !line.equals("")) {
+                    String[] entry = line.split("=");
+                    if (entry.length != 2 || entry[0].equals("") || entry[1].equals("")) {
+                        throw new IllegalArgumentException();
+                    }
+                    values.put(entry[0], entry[1]);
+                }
+                line = read.readLine();
+            }
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             e.printStackTrace();
         }

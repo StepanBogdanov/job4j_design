@@ -22,11 +22,11 @@ public class ConfigTest {
         assertThat(config.value("name"), is("Petr Arsentev"));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void whenWrongPattern() {
-        String path = "wrong_pair.properties";
-        Config config = new Config(path);
-        config.load();
-    }
+//    @Test (expected = IllegalArgumentException.class)
+//    public void whenWrongPattern() {
+//        String path = "wrong_pair.properties";
+//        Config config = new Config(path);
+//        config.load();
+//    }
 
 }

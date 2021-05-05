@@ -18,7 +18,7 @@ public class AnalizyTest {
     public void whenOneDiapason() throws IOException {
         File source = folder.newFile("status.log");
         File target = folder.newFile("unavailable.csv");
-        try(PrintWriter out = new PrintWriter(source)) {
+        try (PrintWriter out = new PrintWriter(source)) {
             out.println("200 10.14.22");
             out.println("400 10.15.45");
             out.println("500 10.15.55");
@@ -36,7 +36,7 @@ public class AnalizyTest {
     public void whenTwoDiapasons() throws IOException {
         File source = folder.newFile("status.log");
         File target = folder.newFile("unavailable.csv");
-        try(PrintWriter out = new PrintWriter(source)) {
+        try (PrintWriter out = new PrintWriter(source)) {
             out.println("200 10.14.22");
             out.println("400 10.15.45");
             out.println("300 10.16.23");
@@ -55,7 +55,7 @@ public class AnalizyTest {
     public void whenNoDiapason() throws IOException {
         File source = folder.newFile("status.log");
         File target = folder.newFile("unavailable.csv");
-        try(PrintWriter out = new PrintWriter(source)) {
+        try (PrintWriter out = new PrintWriter(source)) {
             out.println("200 10.14.22");
             out.println("300 10.16.23");
         }

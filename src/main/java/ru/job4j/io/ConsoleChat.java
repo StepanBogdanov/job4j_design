@@ -14,12 +14,26 @@ public class ConsoleChat {
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
     private final List<String> answers = new ArrayList<>();
+    private final List<String> chatLog = new ArrayList<>();
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
         this.botAnswers = botAnswers;
+    }
+
+    private void readAnswers(String botAnswers) {
         try (BufferedReader br = new BufferedReader(new FileReader(botAnswers, Charset.forName("WINDOWS-1251")))) {
             br.lines().forEach(answers::add);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeLog(List<String> chatLog, String path) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(path, Charset.forName("WINDOWS-1251"), true))) {
+            for (String s : chatLog) {
+                pw.write(s + System.lineSeparator());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,28 +44,26 @@ public class ConsoleChat {
     }
 
     public void run() {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(path, Charset.forName("WINDOWS-1251"), true));
-             Scanner in = new Scanner(System.in)) {
-            String question = in.nextLine();
-            while (!question.endsWith(OUT)) {
-                if (question.equals(STOP)) {
-                    pw.write(question + System.lineSeparator());
-                    question = in.nextLine();
-                    while (!question.equals(CONTINUE)) {
-                        pw.write(question + System.lineSeparator());
-                        question = in.nextLine();
-                    }
-                }
-                pw.write(question + System.lineSeparator());
-                String answer = chooseAnswer(answers);
-                System.out.println(answer);
-                pw.write(answer + System.lineSeparator());
+        readAnswers(botAnswers);
+        Scanner in = new Scanner(System.in);
+        String question = in.nextLine();
+        while (!question.endsWith(OUT)) {
+            if (question.equals(STOP)) {
+                chatLog.add(question);
                 question = in.nextLine();
+                while (!question.equals(CONTINUE)) {
+                    chatLog.add(question);
+                    question = in.nextLine();
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            chatLog.add(question);
+            String answer = chooseAnswer(answers);
+            System.out.println(answer);
+            chatLog.add(answer);
+            question = in.nextLine();
         }
-
+        chatLog.add(question);
+        writeLog(chatLog, path);
     }
 
     public static void main(String[] args) {

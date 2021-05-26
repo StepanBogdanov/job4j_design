@@ -32,7 +32,8 @@ public class ConsoleChat {
     private void writeLog(List<String> chatLog, String path) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(path, Charset.forName("WINDOWS-1251"), true))) {
             for (String s : chatLog) {
-                pw.write(s + System.lineSeparator());
+                pw.write(s);
+                pw.println();
             }
         } catch (IOException e) {
             e.printStackTrace();

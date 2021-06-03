@@ -15,13 +15,20 @@ public class EchoServer {
                     String str = in.readLine();
                     while (!str.isEmpty()) {
                         System.out.println(str);
-                        if (str.contains("Bye")) {
-                            out.write("HTTP/1.1 200 OK\r\n".getBytes());
+                        if (str.contains("Hello")) {
+                            out.write("HTTP/1.1 200 OK \r\n\r\n".getBytes());
+                            out.write("Hello\r\n".getBytes());
+                        } else if (str.contains("Exit")) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             server.close();
-                        }
+                        } else if (str.contains("msg=")){
+                            out.write("HTTP/1.1 200 OK \r\n\r\n".getBytes());
+                            out.write(str.split("msg=")[1].getBytes());
+                            out.write("\r\n".getBytes());
+                       }
                         str = in.readLine();
                     }
-                    out.write("HTTP/1.1 200 OK\r\n".getBytes());
+                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                 }
             }
         }

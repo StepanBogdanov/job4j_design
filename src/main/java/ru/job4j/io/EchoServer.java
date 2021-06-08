@@ -23,12 +23,11 @@ public class EchoServer {
                             server.close();
                         } else if (str.contains("msg=")){
                             out.write("HTTP/1.1 200 OK \r\n\r\n".getBytes());
-                            out.write(str.split("msg=")[1].getBytes());
+                            out.write("What\r\n".getBytes());
                             out.write("\r\n".getBytes());
                        }
                         str = in.readLine();
                     }
-                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                 }
             }
         }

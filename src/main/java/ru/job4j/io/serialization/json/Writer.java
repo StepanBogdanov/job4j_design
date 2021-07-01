@@ -13,6 +13,18 @@ public class Writer {
         this.books = books;
     }
 
+    public boolean isSex() {
+        return sex;
+    }
+
+    public int getNumberOfBooks() {
+        return numberOfBooks;
+    }
+
+    public Book[] getBooks() {
+        return books;
+    }
+
     @Override
     public String toString() {
         return "Writer{" +

@@ -1,9 +1,6 @@
 package ru.job4j.io;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class CSVReader {
@@ -31,9 +28,11 @@ public class CSVReader {
 
         if (validate) {
             if (keys.get("out").equals("stdout")) {
-                stdOut(keys, file);
+                out(keys, file, System.out);
             } else {
-                fileOut(keys, file);
+                try (PrintStream stream = new PrintStream(keys.get("out"))) {
+                    out(keys, file, stream);
+                }
             }
         }
 
@@ -59,37 +58,16 @@ public class CSVReader {
         return indexes;
     }
 
-    private static void stdOut(ArgsName keys, File file) throws FileNotFoundException {
+    private static void out(ArgsName keys, File file, PrintStream stream) throws FileNotFoundException {
         int[] indexes = getIndexes(file, keys.get("filter"), keys.get("delimiter"));
         try (var sc = new Scanner(file)){
             while (sc.hasNext()) {
                 String[] line = sc.nextLine().split(keys.get("delimiter"));
-                for (int i = 0; i < line.length; i++) {
-                    for (int index : indexes) {
-                        if (i == index) {
-                            System.out.print(line[i]);
-                        }
-                    }
+                for (int index : indexes) {
+                    stream.print(line[index]);
                 }
-                System.out.print(System.lineSeparator());
+            stream.println();
             }
-        }
-    }
-
-    private static void fileOut(ArgsName keys, File file) throws FileNotFoundException {
-        int[] indexes = getIndexes(file, keys.get("filter"), keys.get("delimiter"));
-        try (var sc = new Scanner(file);
-             var writer = new PrintWriter(new FileOutputStream(keys.get("out")))){
-            while (sc.hasNext()) {
-                String[] line = sc.nextLine().split(keys.get("delimiter"));
-                for (int i = 0; i < line.length; i++) {
-                    for (int index : indexes) {
-                        if (i == index) {
-                            writer.write(line[i]);
-                        }
-                    }
-                }
-                writer.write(System.lineSeparator());            }
         }
     }
 }

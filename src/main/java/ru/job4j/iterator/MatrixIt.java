@@ -12,18 +12,18 @@ public class MatrixIt implements Iterator<Integer> {
         this.data = data;
     }
 
-    @SuppressWarnings("checkstyle:EmptyBlock")
     @Override
     public boolean hasNext() {
+        boolean result = false;
         while (row < data.length) {
             if (data[row].length > 0 && column < data[row].length) {
-                return true;
-            } else {
-                row++;
-                column = 0;
+                result = true;
+                break;
             }
+            row++;
+            column = 0;
         }
-        return false;
+        return result;
     }
 
     @Override

@@ -63,6 +63,9 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
             @Override
             public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
                 return point < size;
             }
 
@@ -71,9 +74,6 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
-                }
                 return container[point++];
             }
 
@@ -81,6 +81,6 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     private T[] grow() {
-        return Arrays.copyOf(container, container.length * 2);
+        return container.length == 0 ? (T[]) new Object[10] : Arrays.copyOf(container, container.length * 2);
     }
 }

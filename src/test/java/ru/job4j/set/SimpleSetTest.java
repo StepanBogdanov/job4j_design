@@ -22,4 +22,13 @@ public class SimpleSetTest {
         assertFalse(set.add(null));
     }
 
+    @Test
+    public void whenAddSeveralAndThenDuplicate() {
+        Set<Integer> set = new SimpleSet<>();
+        assertTrue(set.add(1));
+        assertTrue(set.add(2));
+        assertTrue(set.add(3));
+        assertFalse(set.add(2));
+    }
+
 }

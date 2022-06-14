@@ -1,4 +1,4 @@
-package ru.job4j.set;
+package ru.job4j.collection.set;
 
 import ru.job4j.collection.SimpleArrayList;
 

@@ -19,7 +19,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if (count > 0 && (float) count / capacity > LOAD_FACTOR) {
+        if ((float) count / capacity > LOAD_FACTOR) {
             expand();
             modCount++;
         }
@@ -57,14 +57,14 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int ind = indexFor(hash(key.hashCode()));
-        return table[ind] == null ? null : table[ind].value;
+        return table[ind] == null || !key.equals(table[ind].key) ? null : table[ind].value;
     }
 
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
         int ind = indexFor(hash(key.hashCode()));
-        if (table[ind] != null) {
+        if (table[ind] != null && key.equals(table[ind].key)) {
             table[ind] = null;
             count--;
             modCount++;

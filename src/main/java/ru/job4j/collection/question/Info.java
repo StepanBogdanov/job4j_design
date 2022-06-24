@@ -44,6 +44,7 @@ public class Info {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
+
             return false;
         }
         Info info = (Info) o;

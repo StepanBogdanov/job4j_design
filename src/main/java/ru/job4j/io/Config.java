@@ -19,11 +19,12 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines().
                     filter(s -> !s.startsWith("#")).
-                    filter(s -> s.length() > 0).
+                    filter(s -> !s.isBlank()).
                     map(s -> s.split("=", 2)).
                     peek(s -> {
                         if (s.length != 2 || s[0].isEmpty() || s[1].isEmpty()) {
-                            throw new IllegalArgumentException();
+                            throw new IllegalArgumentException("Wrong pattern key-value in line: "
+                                    + String.join("=", s));
                         }
                     }).
                     forEach(s -> values.put(s[0], s[1]));

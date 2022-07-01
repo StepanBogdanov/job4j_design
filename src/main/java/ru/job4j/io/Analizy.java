@@ -10,11 +10,11 @@ public class Analizy {
             String start = "";
             while ((line = read.readLine()) != null) {
                 String[] splitLine = line.split(" ");
-                if (start.isEmpty() && (splitLine[0].equals("400") || splitLine[0].equals("500"))) {
+                if (start.isEmpty() && ("400".equals(splitLine[0]) || "500".equals(splitLine[0]))) {
                     start = splitLine[1];
                     continue;
                 }
-                if (!start.isEmpty() && !splitLine[0].equals("400") && !splitLine[0].equals("500")) {
+                if (!start.isEmpty() && !"400".equals(splitLine[0]) && !"500".equals(splitLine[0])) {
                     out.println(start + ";" + splitLine[1]);
                     start = "";
                 }

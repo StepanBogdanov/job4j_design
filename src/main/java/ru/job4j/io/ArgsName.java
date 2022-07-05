@@ -21,16 +21,16 @@ public class ArgsName {
         for (String arg : args) {
             String[] pair = arg.split("=", 2);
             if (pair.length < 2) {
-                throw new IllegalArgumentException("Parameter doesn't have equals symbol: " + arg);
+                throw new IllegalArgumentException(String.format("Parameter doesn't have equals symbol: %s", arg));
             }
             if (!pair[0].startsWith("-")) {
-                throw new IllegalArgumentException("Wrong start of key in parameter: " + arg);
+                throw new IllegalArgumentException(String.format("Wrong start of key in parameter: %s", arg));
             }
             if (pair[0].substring(1).isBlank()) {
-                throw new IllegalArgumentException("Wrong key in parameter: " + arg);
+                throw new IllegalArgumentException(String.format("Wrong key in parameter: %s", arg));
             }
             if (pair[1].isBlank()) {
-                throw new IllegalArgumentException("Wrong argument in parameter: " + arg);
+                throw new IllegalArgumentException(String.format("Wrong argument in parameter: %s", arg));
             }
         }
     }

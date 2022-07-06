@@ -14,6 +14,10 @@ public class ArgsName {
         return values.get(key);
     }
 
+    public boolean checkKey(String key) {
+        return values.containsKey(key);
+    }
+
     private void validate(String[] args) {
         if (args.length == 0) {
             throw new IllegalArgumentException("List of parameters is empty");

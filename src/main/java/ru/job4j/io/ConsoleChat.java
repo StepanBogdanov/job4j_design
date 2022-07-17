@@ -23,12 +23,12 @@ public class ConsoleChat {
         Scanner in = new Scanner(System.in);
         boolean readyToAnswer = true;
         String phrase = in.nextLine();
-        while (!phrase.equals(OUT)) {
+        while (!OUT.equals(phrase)) {
             log.add(phrase);
-            if (!readyToAnswer && phrase.equals(CONTINUE)) {
+            if (!readyToAnswer && CONTINUE.equals(phrase)) {
                 readyToAnswer = true;
             }
-            if (readyToAnswer && phrase.equals(STOP)) {
+            if (readyToAnswer && STOP.equals(phrase)) {
                 readyToAnswer = false;
             }
             if (readyToAnswer) {

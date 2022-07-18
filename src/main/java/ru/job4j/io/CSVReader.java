@@ -14,9 +14,9 @@ public class CSVReader {
 
     public static void handle(ArgsName argsName) throws Exception {
         List<Integer> filter = filter(argsName);
-        PrintStream out = "stdout".equals(argsName.get("out")) ? new PrintStream(System.out)
-                : new PrintStream(new FileOutputStream(argsName.get("out")));
-        try (Scanner scanner = new Scanner(new FileReader(argsName.get("path")))) {
+        try (Scanner scanner = new Scanner(new FileReader(argsName.get("path")));
+                PrintStream out = "stdout".equals(argsName.get("out")) ? new PrintStream(System.out)
+                : new PrintStream(new FileOutputStream(argsName.get("out")))) {
             scanner.useDelimiter(System.lineSeparator());
             while (scanner.hasNext()) {
                 String[] line = scanner.next().split(argsName.get("delimiter"));

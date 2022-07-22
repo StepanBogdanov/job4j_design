@@ -9,10 +9,18 @@ public class UsageLog4j {
 
 
     public static void main(String[] args) {
-        LOG.trace("trace message");
-        LOG.debug("debug message");
-        LOG.info("info message");
-        LOG.warn("warn message");
-        LOG.error("error message");
+        byte byteNumber = 13;
+        short shortNumber = 34;
+        int intNumber = 281;
+        long longNumber = 342L;
+        float floatNumber = 3.52f;
+        double doubleNumber = 7.34325;
+        char character = 'a';
+        boolean bool = true;
+
+        LOG.debug("debug message {} {}", byteNumber, shortNumber);
+        LOG.info("info message {} {}", intNumber, longNumber);
+        LOG.warn("warn message {} {}", floatNumber, doubleNumber);
+        LOG.error("error message {} {}", character, bool);
     }
 }

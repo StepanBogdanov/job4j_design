@@ -33,6 +33,18 @@ public class Student {
         this.characterization = characterization;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public boolean isSex() {
+        return sex;
+    }
+
     @Override
     public String toString() {
         return "Student{"

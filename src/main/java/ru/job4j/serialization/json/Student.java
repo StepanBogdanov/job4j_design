@@ -33,6 +33,14 @@ public class Student {
         this.characterization = characterization;
     }
 
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public String[] getCharacterization() {
+        return characterization;
+    }
+
     public String getName() {
         return name;
     }

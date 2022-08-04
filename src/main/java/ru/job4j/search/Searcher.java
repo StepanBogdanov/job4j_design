@@ -37,7 +37,8 @@ public class Searcher {
         if ("name".equals(argsName.get("t"))) {
             predicate = p -> p.toFile().getName().equals(argsName.get("n"));
         } else if ("mask".equals(argsName.get("t"))) {
-            predicate = p -> p.toFile().getName().contains(argsName.get("n"));
+            String regex = argsName.get("n").replace("*", "\\w+").replace("?", "\\w");
+            predicate = p -> p.toFile().getName().matches(regex);
         } else {
             predicate = p -> p.toFile().getName().matches(argsName.get("n"));
         }

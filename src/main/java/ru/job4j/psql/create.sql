@@ -33,6 +33,7 @@ create table states(
 create table items(
     id serial primary key,
     name text,
+    user_id int references users(id),
     category_id int references categories(id),
     state_id int references states(id)
 );

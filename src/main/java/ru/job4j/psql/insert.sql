@@ -26,6 +26,11 @@ insert into items(name, category_id, state_id) values ('name2', 1, 2);
 insert into items(name, category_id, state_id) values ('name3', 2, 2);
 insert into items(name, category_id, state_id) values ('name4', 3, 1);
 
+insert into user_items(user_id, item_id) values (1, 1);
+insert into user_items(user_id, item_id) values (2, 2);
+insert into user_items(user_id, item_id) values (2, 3);
+insert into user_items(user_id, item_id) values (3, 4);
+
 insert into comments(comment, item_id) values ('comment1', 1);
 insert into comments(comment, item_id) values ('comment2', 2);
 insert into comments(comment, item_id) values ('comment3', 3);

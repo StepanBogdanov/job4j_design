@@ -37,6 +37,12 @@ create table items(
     state_id int references states(id)
 );
 
+create table user_items(
+    id serial primary key,
+    user_id int references users(id),
+    item_id int references items(id)
+);
+
 create table comments(
     id serial primary key,
     comment text,

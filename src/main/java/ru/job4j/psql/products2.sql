@@ -63,7 +63,7 @@ where expired_date < current_date;
 
 select t.name Тип, p.name Наименование, p.expired_date as "Срок годности", p.price Цена
 from type t join product p on t.id = p.type_id
-order by p.price desc limit 1;
+where p.price = (select max(p.price) from product p);
 
 select t.name, count(p.name)
 from type t join product p on t.id = p.type_id

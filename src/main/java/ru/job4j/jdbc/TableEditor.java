@@ -31,10 +31,10 @@ public class TableEditor implements AutoCloseable {
 
     public void createTable(String tableName) throws SQLException {
         String sql = String.format(
-                "create table if not exists %s(%s, %s);",
+                "create table if not exists %s(%s);",
                 tableName,
-                "id serial primary key",
-                "name text");
+                "id serial primary key"
+                );
         make(sql);
     }
 
@@ -107,16 +107,16 @@ public class TableEditor implements AutoCloseable {
         try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
             config.load(in);
         }
-        TableEditor tableEditor = new TableEditor(config);
-        tableEditor.dropTable("table1");
-        tableEditor.createTable("table1");
-        System.out.println(getTableScheme(tableEditor.connection, "table1"));
-        tableEditor.addColumn("table1", "digit", "int");
-        System.out.println(getTableScheme(tableEditor.connection, "table1"));
-        tableEditor.dropColumn("table1", "name");
-        System.out.println(getTableScheme(tableEditor.connection, "table1"));
-        tableEditor.renameColumn("table1", "digit", "number");
-        System.out.println(getTableScheme(tableEditor.connection, "table1"));
-        tableEditor.close();
+        try (TableEditor tableEditor = new TableEditor(config)) {
+            tableEditor.dropTable("table1");
+            tableEditor.createTable("table1");
+            System.out.println(getTableScheme(tableEditor.connection, "table1"));
+            tableEditor.addColumn("table1", "digit", "int");
+            System.out.println(getTableScheme(tableEditor.connection, "table1"));
+            tableEditor.renameColumn("table1", "digit", "number");
+            System.out.println(getTableScheme(tableEditor.connection, "table1"));
+            tableEditor.dropColumn("table1", "number");
+            System.out.println(getTableScheme(tableEditor.connection, "table1"));
+        }
     }
 }

@@ -4,6 +4,7 @@ import ru.job4j.cache.AbstractCache;
 import ru.job4j.cache.DirFileCache;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Emulator {

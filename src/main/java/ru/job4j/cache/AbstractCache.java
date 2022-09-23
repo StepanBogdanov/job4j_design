@@ -1,5 +1,6 @@
 package ru.job4j.cache;
 
+import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;

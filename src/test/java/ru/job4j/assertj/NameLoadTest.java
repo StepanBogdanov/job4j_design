@@ -26,6 +26,7 @@ class NameLoadTest {
         String[] names = new String[]{"1Name"};
         assertThatThrownBy(() -> nameLoad.parse(names))
                 .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("1Name")
                 .hasMessageContaining("symbol");
 
     }
@@ -33,18 +34,20 @@ class NameLoadTest {
     @Test
     void whenParseWithoutKey() {
         NameLoad nameLoad = new NameLoad();
-        String[] names = new String[]{"=Name"};
+        String[] names = new String[]{"1=Name", "=Name"};
         assertThatThrownBy(() -> nameLoad.parse(names))
                 .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("=Name")
                 .hasMessageContaining("key");
     }
 
     @Test
     void whenParseWithoutValue() {
         NameLoad nameLoad = new NameLoad();
-        String[] names = new String[]{"1="};
+        String[] names = new String[]{"1=Name", "2="};
         assertThatThrownBy(() -> nameLoad.parse(names))
                 .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("2=")
                 .hasMessageContaining("value");
     }
 }

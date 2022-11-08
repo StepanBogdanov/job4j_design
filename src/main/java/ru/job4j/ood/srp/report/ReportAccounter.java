@@ -14,12 +14,13 @@ public class ReportAccounter implements Report {
 
     private final Store store;
     private final DateTimeParser<Calendar> dateTimeParser;
-    CurrencyConverter converter = new InMemoryCurrencyConverter();
+    private final CurrencyConverter converter;
 
 
-    public ReportAccounter(Store store, DateTimeParser<Calendar> dateTimeParser) {
+    public ReportAccounter(Store store, DateTimeParser<Calendar> dateTimeParser, CurrencyConverter converter) {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
+        this.converter = converter;
     }
 
     @Override

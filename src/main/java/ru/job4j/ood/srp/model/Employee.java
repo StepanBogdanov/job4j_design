@@ -3,7 +3,7 @@ package ru.job4j.ood.srp.model;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class Employee implements Comparable {
+public class Employee {
     private String name;
     private Calendar hired;
     private Calendar fired;
@@ -63,11 +63,5 @@ public class Employee implements Comparable {
     @Override
     public int hashCode() {
         return Objects.hash(name);
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        Employee anotherEmp = (Employee) o;
-        return (int) (anotherEmp.getSalary() - salary);
     }
 }

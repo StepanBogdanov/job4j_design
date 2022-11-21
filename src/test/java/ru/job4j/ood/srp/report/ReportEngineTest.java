@@ -128,7 +128,25 @@ public class ReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report engine = new ReportXML(store);
-        System.out.println(engine.generate(en -> true));
-
+        StringBuilder expect = new StringBuilder();
+        expect.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
+                .append(System.lineSeparator())
+                .append("<employees>").append(System.lineSeparator())
+                .append("\t<employees>").append(System.lineSeparator())
+                .append("\t\t<fired>").append(now.get(Calendar.YEAR)).append("-").append(now.get(Calendar.MONTH) + 1)
+                .append("-").append(now.get(Calendar.DAY_OF_MONTH)).append("T").append(now.get(Calendar.HOUR_OF_DAY))
+                .append(":").append(now.get(Calendar.MINUTE)).append(":").append(now.get(Calendar.SECOND))
+                .append(".").append(now.get(Calendar.MILLISECOND)).append("+03:00").append("</fired")
+                .append(System.lineSeparator())
+                .append("\t\t<hired>").append(now.get(Calendar.YEAR)).append("-").append(now.get(Calendar.MONTH) + 1)
+                .append("-").append(now.get(Calendar.DAY_OF_MONTH)).append("T").append(now.get(Calendar.HOUR_OF_DAY))
+                .append(":").append(now.get(Calendar.MINUTE)).append(":").append(now.get(Calendar.SECOND))
+                .append(".").append(now.get(Calendar.MILLISECOND)).append("+03:00").append("</hired")
+                .append(System.lineSeparator())
+                .append("\t\t<name>").append(worker.getName()).append("</name>").append(System.lineSeparator())
+                .append("\t\t<salary>").append(worker.getSalary()).append("</salary>").append(System.lineSeparator())
+                .append("\t</employees>").append(System.lineSeparator()).append("</employees>")
+                .append(System.lineSeparator());
+        assertThat(engine.generate(em -> true)).isEqualToNormalizingPunctuationAndWhitespace(expect.toString());
     }
 }

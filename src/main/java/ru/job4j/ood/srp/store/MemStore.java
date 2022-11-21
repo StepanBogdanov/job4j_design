@@ -8,18 +8,9 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@XmlRootElement(name = "employees")
 public class MemStore implements Store {
 
     private List<Employee> employees = new ArrayList<>();
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
 
     @Override
     public void add(Employee em) {

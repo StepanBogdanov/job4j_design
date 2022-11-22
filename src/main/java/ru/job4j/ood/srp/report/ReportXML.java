@@ -6,7 +6,7 @@ import ru.job4j.ood.srp.store.Store;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
@@ -14,8 +14,8 @@ import java.util.function.Predicate;
 
 public class ReportXML implements Report {
 
-    private Store store = null;
-    private Marshaller marshaller = null;
+    private Store store;
+    private Marshaller marshaller;
 
     public ReportXML(Store store) {
         try {
@@ -24,7 +24,7 @@ public class ReportXML implements Report {
             this.marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         } catch (JAXBException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException();
         }
     }
 
@@ -35,14 +35,17 @@ public class ReportXML implements Report {
             marshaller.marshal(new Employees(store.findBy(filter)), writer);
             xml = writer.getBuffer().toString();
         } catch (IOException | JAXBException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException();
         }
         return xml;
     }
 
-    @XmlRootElement (name = "employees")
+    @XmlRootElement (name = "xmlReport")
+    @XmlAccessorType(XmlAccessType.FIELD)
     private static class Employees {
 
+        @XmlElementWrapper (name = "employees")
+        @XmlElement (name = "employee")
         private List<Employee> employees;
 
         public Employees(List<Employee> employees) {

@@ -7,12 +7,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ReportHR implements Report {
+public class HRReport implements Report {
 
     private final Store store;
     private final Comparator<Employee> descSalary = (e1, e2) -> (int) (e2.getSalary() - e1.getSalary());
 
-    public ReportHR(Store store) {
+    public HRReport(Store store) {
         this.store = store;
     }
 

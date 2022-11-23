@@ -12,12 +12,12 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ReportXML implements Report {
+public class XmlReport implements Report {
 
     private Store store;
     private Marshaller marshaller;
 
-    public ReportXML(Store store) {
+    public XmlReport(Store store) {
         try {
             this.store = store;
             JAXBContext context = JAXBContext.newInstance(Employees.class);

@@ -1,6 +1,7 @@
-package ru.job4j.ood.lsp.model;
+package ru.job4j.ood.lsp.quality.model;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class Food {
 
@@ -36,5 +37,26 @@ public class Food {
 
     public double getDiscount() {
         return discount;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Food food = (Food) o;
+        return Objects.equals(name, food.name) && Objects.equals(expiryDate, food.expiryDate) && Objects.equals(createDate, food.createDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, expiryDate, createDate);
     }
 }

@@ -13,8 +13,13 @@ class ShopTest {
 
     @Test
     public void whenAddWithoutDiscount() {
-        Food food = new Food("food2", new GregorianCalendar(2022, 11, 30),
-                new GregorianCalendar(2022, 9, 1), 100, 0.1);
+        Calendar expiryDate = Calendar.getInstance();
+        Calendar createDate = Calendar.getInstance();
+        expiryDate.set(expiryDate.get(Calendar.YEAR), expiryDate.get(Calendar.MONTH),
+                expiryDate.get(Calendar.DAY_OF_MONTH) + 10);
+        createDate.set(createDate.get(Calendar.YEAR), createDate.get(Calendar.MONTH),
+                createDate.get(Calendar.DAY_OF_MONTH) - 10);
+        Food food = new Food("foodWithoutDiscount", expiryDate, createDate, 100, 0.1);
         Store shop = new Shop();
         shop.add(food);
         List<Food> foods = shop.getAll();
@@ -23,8 +28,13 @@ class ShopTest {
 
     @Test
     public void whenAddWithDiscount() {
-        Food food = new Food("food3", new GregorianCalendar(2022, 11, 30),
-                new GregorianCalendar(2022, 0, 1), 100, 0.1);
+        Calendar expiryDate = Calendar.getInstance();
+        Calendar createDate = Calendar.getInstance();
+        expiryDate.set(expiryDate.get(Calendar.YEAR), expiryDate.get(Calendar.MONTH),
+                expiryDate.get(Calendar.DAY_OF_MONTH) + 3);
+        createDate.set(createDate.get(Calendar.YEAR), createDate.get(Calendar.MONTH),
+                createDate.get(Calendar.DAY_OF_MONTH) - 10);
+        Food food = new Food("foodWithDiscount", expiryDate, createDate, 100, 0.1);
         Store shop = new Shop();
         shop.add(food);
         List<Food> foods = shop.getAll();

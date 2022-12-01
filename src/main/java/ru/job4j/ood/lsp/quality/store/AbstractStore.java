@@ -9,10 +9,13 @@ public abstract class AbstractStore implements Store {
 
     private List<Food> store = new ArrayList<>();
 
-    public void add(Food food) {
+    public boolean add(Food food) {
+        boolean rsl = false;
         if (isNotExpired(food)) {
             store.add(food);
+            rsl = true;
         }
+        return rsl;
     }
 
     public List<Food> getAll() {

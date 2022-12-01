@@ -6,11 +6,12 @@ import ru.job4j.ood.lsp.quality.model.Food;
 
 public class Warehouse extends AbstractStore {
 
-    private ExpirationCalculator calc;
     private static final double STORAGE_LIMIT = 25;
 
-    public Warehouse() {
-        this.calc = new CalendarExpirationCalculator();
+    private ExpirationCalculator calc;
+
+    public Warehouse(ExpirationCalculator calc) {
+        this.calc = calc;
     }
 
     @Override

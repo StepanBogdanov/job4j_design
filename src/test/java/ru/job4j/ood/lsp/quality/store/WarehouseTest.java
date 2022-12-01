@@ -1,6 +1,8 @@
 package ru.job4j.ood.lsp.quality.store;
 
 import org.junit.jupiter.api.Test;
+import ru.job4j.ood.lsp.quality.handler.CalendarExpirationCalculator;
+import ru.job4j.ood.lsp.quality.handler.ExpirationCalculator;
 import ru.job4j.ood.lsp.quality.model.Food;
 
 import java.util.Calendar;
@@ -20,7 +22,8 @@ class WarehouseTest {
         createDate.set(createDate.get(Calendar.YEAR), createDate.get(Calendar.MONTH),
                 createDate.get(Calendar.DAY_OF_MONTH) - 1);
         Food food = new Food("warehouse", expiryDate, createDate, 100, 0.1);
-        Store warehouse = new Warehouse();
+        ExpirationCalculator calc = new CalendarExpirationCalculator();
+        Store warehouse = new Warehouse(calc);
         warehouse.add(food);
         List<Food> foods = warehouse.getAll();
         assertThat(foods.get(0).getName()).isEqualTo("warehouse");

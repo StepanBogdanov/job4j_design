@@ -18,9 +18,10 @@ class ControlQualityTest {
 
     @Test
     public void whenAddAllTypeOfFoods() {
-        Store warehouse = new Warehouse();
-        Store shop = new Shop();
-        Store trash = new Trash();
+        ExpirationCalculator calc = new CalendarExpirationCalculator();
+        Store warehouse = new Warehouse(calc);
+        Store shop = new Shop(calc);
+        Store trash = new Trash(calc);
         List<Store> stores = new ArrayList<>(List.of(warehouse, shop, trash));
         ControlQuality cq = new ControlQuality(stores);
 

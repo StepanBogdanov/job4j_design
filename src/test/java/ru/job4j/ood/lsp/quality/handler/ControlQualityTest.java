@@ -25,23 +25,23 @@ class ControlQualityTest {
         List<Store> stores = new ArrayList<>(List.of(warehouse, shop, trash));
         ControlQuality cq = new ControlQuality(stores);
 
-        Calendar expiryDate = Calendar.getInstance();
-        Calendar createDate = Calendar.getInstance();
-        expiryDate.add(Calendar.DAY_OF_MONTH, 10);
-        createDate.add(Calendar.DAY_OF_MONTH, -1);
-        Food food1 = new Food("warehouse", expiryDate, createDate, 100, 0.1);
+        Calendar expiryDateWH = Calendar.getInstance();
+        Calendar createDateWH = Calendar.getInstance();
+        expiryDateWH.add(Calendar.DAY_OF_MONTH, 10);
+        createDateWH.add(Calendar.DAY_OF_MONTH, -1);
+        Food food1 = new Food("warehouse", expiryDateWH, createDateWH, 100, 0.1);
 
-        expiryDate = Calendar.getInstance();
-        createDate = Calendar.getInstance();
-        expiryDate.add(Calendar.DAY_OF_MONTH, 10);
-        createDate.add(Calendar.DAY_OF_MONTH, -10);
-        Food food2 = new Food("shop", expiryDate, createDate, 100, 0.1);
+        Calendar expiryDateShop = Calendar.getInstance();
+        Calendar createDateShop = Calendar.getInstance();
+        expiryDateShop.add(Calendar.DAY_OF_MONTH, 10);
+        createDateShop.add(Calendar.DAY_OF_MONTH, -10);
+        Food food2 = new Food("shop", expiryDateShop, createDateShop, 100, 0.1);
 
-        expiryDate = Calendar.getInstance();
-        createDate = Calendar.getInstance();
-        expiryDate.add(Calendar.DAY_OF_MONTH, -1);
-        createDate.add(Calendar.DAY_OF_MONTH, -10);
-        Food food3 = new Food("trash", expiryDate, createDate, 100, 0.1);
+        Calendar expiryDateTrash = Calendar.getInstance();
+        Calendar createDateTrash = Calendar.getInstance();
+        expiryDateTrash.add(Calendar.DAY_OF_MONTH, -1);
+        createDateTrash.add(Calendar.DAY_OF_MONTH, -10);
+        Food food3 = new Food("trash", expiryDateTrash, createDateTrash, 100, 0.1);
 
         cq.add(food1);
         cq.add(food2);

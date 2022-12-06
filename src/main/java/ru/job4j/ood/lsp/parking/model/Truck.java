@@ -7,5 +7,8 @@ public class Truck extends Car {
     public Truck(String name, int size) {
         super(name);
         this.size = size;
+        if (size <= PASSENGER_CAR_SIZE) {
+            throw new IllegalArgumentException();
+        }
     }
 }

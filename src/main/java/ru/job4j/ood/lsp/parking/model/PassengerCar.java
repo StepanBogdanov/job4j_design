@@ -6,6 +6,6 @@ public class PassengerCar extends Car {
 
     public PassengerCar(String name) {
         super(name);
-        this.size = 1;
+        this.size = PASSENGER_CAR_SIZE;
     }
 }

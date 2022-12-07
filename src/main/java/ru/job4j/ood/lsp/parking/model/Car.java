@@ -2,16 +2,19 @@ package ru.job4j.ood.lsp.parking.model;
 
 public abstract class Car {
 
-    public static final int PASSENGER_CAR_SIZE = 1;
+    private final String name;
+    private final int size;
 
-    private String name;
-    private int size;
-
-    public Car(String name) {
+    public Car(String name, int size) {
         this.name = name;
+        this.size = size;
     }
 
     public int getSize() {
         return size;
+    }
+
+    public String getName() {
+        return name;
     }
 }

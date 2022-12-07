@@ -2,10 +2,9 @@ package ru.job4j.ood.lsp.parking.model;
 
 public class PassengerCar extends Car {
 
-    private int size;
+    public static final int SIZE = 1;
 
     public PassengerCar(String name) {
-        super(name);
-        this.size = PASSENGER_CAR_SIZE;
+        super(name, SIZE);
     }
 }

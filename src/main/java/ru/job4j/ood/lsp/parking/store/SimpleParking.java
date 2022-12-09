@@ -22,12 +22,57 @@ public class SimpleParking implements Parking {
 
     @Override
     public boolean add(Car car) {
-        return false;
+        boolean rsl = false;
+        if (isPassengerCar(car)) {
+            if (pasCarFreePlaces > 0) {
+                pasCarParking.add(car);
+                pasCarFreePlaces--;
+                rsl = true;
+            }
+        } else {
+            if (truckFreePlaces > 0) {
+                truckParking.add(car);
+                truckFreePlaces--;
+                rsl = true;
+            } else if (pasCarFreePlaces >= car.getSize()) {
+                pasCarParking.add(car);
+                pasCarFreePlaces = pasCarFreePlaces - car.getSize();
+                rsl = true;
+            }
+        }
+        return rsl;
     }
 
     @Override
     public boolean delete(Car car) {
-        return false;
+        boolean rsl = false;
+        if (isPassengerCar(car)) {
+            for (Car pasCar : pasCarParking) {
+                if (pasCar.equals(car)) {
+                    pasCarParking.remove(car);
+                    rsl = true;
+                    break;
+                }
+            }
+        } else {
+            for (Car truck : truckParking) {
+                if (truck.equals(car)) {
+                    truckParking.remove(car);
+                    rsl = true;
+                    break;
+                }
+            }
+            if (!rsl) {
+                for (Car truck : pasCarParking) {
+                    if (truck.equals(car)) {
+                        pasCarParking.remove(car);
+                        rsl = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return rsl;
     }
 
     private boolean isPassengerCar(Car car) {

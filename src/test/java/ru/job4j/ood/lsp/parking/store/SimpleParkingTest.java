@@ -1,7 +1,5 @@
 package ru.job4j.ood.lsp.parking.store;
 
-import org.junit.Ignore;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.lsp.parking.model.Car;
 import ru.job4j.ood.lsp.parking.model.PassengerCar;

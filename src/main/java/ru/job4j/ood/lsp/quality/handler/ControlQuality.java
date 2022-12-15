@@ -26,7 +26,7 @@ public class ControlQuality {
             for (Food food : store.getAll()) {
                 tempStore.add(food);
             }
-            store.getAll().clear();
+            store.clear();
         }
         for (Food food : tempStore) {
             add(food);

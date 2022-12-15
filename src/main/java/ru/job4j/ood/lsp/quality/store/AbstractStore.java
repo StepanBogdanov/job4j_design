@@ -19,7 +19,12 @@ public abstract class AbstractStore implements Store {
     }
 
     public List<Food> getAll() {
-        return store;
+        return new ArrayList<>(store);
+    }
+
+    @Override
+    public void clear() {
+        store.clear();
     }
 
     protected abstract boolean isNotExpired(Food food);

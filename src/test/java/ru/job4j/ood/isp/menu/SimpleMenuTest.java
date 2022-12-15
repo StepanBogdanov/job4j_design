@@ -2,7 +2,9 @@ package ru.job4j.ood.isp.menu;
 
 import org.junit.jupiter.api.Test;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -31,4 +33,10 @@ public class SimpleMenuTest {
         menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
     }
 
+    @Test
+    public void whenAddThenReturnWrong() {
+        Menu menu = new SimpleMenu();
+        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
+        assertThat(Optional.empty()).isEqualTo(menu.select("Покормить собауку"));
+    }
 }

@@ -6,11 +6,12 @@ import java.util.Scanner;
 
 public class TODOApp {
 
-    public static final String MENU = String.join(System.lineSeparator(),
-            "1.Ввести задачу",
-            "2.Вывести список задач",
-            "3.Выход" + System.lineSeparator());
-    public static final String ASK = "Выберите пункт меню";
+    private static final String ENTER_TASK = "1.Ввести задачу";
+    private static final String PRINT_TASKS = "2.Вывести список задач";
+    private static final String EXIT = "3.Выход";
+    private static final String MENU = String.join(System.lineSeparator(),
+            ENTER_TASK, PRINT_TASKS, EXIT + System.lineSeparator());
+    private static final String ASK = "Выберите пункт меню";
     public static final ActionDelegate STUB_ACTION = System.out::println;
 
 

@@ -23,9 +23,7 @@ public class ControlQuality {
     public void resort() {
         List<Food> tempStore = new ArrayList<>();
         for (Store store : stores) {
-            for (Food food : store.getAll()) {
-                tempStore.add(food);
-            }
+            tempStore.addAll(store.getAll());
             store.clear();
         }
         for (Food food : tempStore) {

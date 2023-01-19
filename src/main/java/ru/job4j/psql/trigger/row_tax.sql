@@ -1,4 +1,4 @@
-create or replace function tax()
+create or replace function row_tax()
 	returns trigger as
 $$
 	BEGIN

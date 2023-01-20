@@ -2,7 +2,7 @@ create or replace function row_tax()
 	returns trigger as
 $$
 	BEGIN
-		new.price = new.price + new.price * 0.2
+		new.price = new.price + new.price * 0.2;
 		return NEW;
 	END;
 $$

@@ -8,7 +8,7 @@ $$;
 
 create function f_delete_data()
 returns void
-language 'pspgsql'
+language 'plpgsql'
 as $$
     BEGIN
     delete from products where count = 0;

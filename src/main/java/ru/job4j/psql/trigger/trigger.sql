@@ -2,7 +2,6 @@ create or replace function row_tax()
 	returns trigger as
 $$
 	BEGIN
-		update products
 		new.price = new.price + new.price * 0.2
 		return NEW;
 	END;
@@ -37,7 +36,7 @@ $$
 	BEGIN
 		update products
 		set price = price + price * 0.2
-		where id = select id from interested;
+		where id = (select id from interested);
 		return NEW;
 	END;
 $$
